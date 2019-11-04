@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        table,th,td{
+            border:1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <!--jinjia2 vue.js-->
+    <table>
+        <!--表头只需要一个，如果把th放在循环中，会生成和数据量一样多-->
+        <!--如果数据为空，需要先判断.如果list为空，那么字典的key是获取不到的.-->
+        {% if set.__len__ %}
+        <!--一行就是一个tr标签-->
+            <tr>
+                <!--set[0]是一个dict-->
+                {% for k in set[0].keys() %}
+
+                <th>{{k}}</th>
+                {% endfor %}
+            </tr>
+        {% endif %}
+
+        <!-- 循环值-->
+        {% for dict_ in set %}
+            {% if loop.index %}
+                <tr>
+
+                    {% for v in dict_.values() %}
+                    <td>{{v}}</td>
+                    {% endif %}
+
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+    <!--增加点击按钮-->
+    <a href="/u/pageinit/?page={{1 if page <= 1 else page-1}}">上一页</a>
+    {% for i in range(end) %}
+        <a href="/u/pageinit/?page={{i+1}}">{{i+1}}</a>
+    {% endfor %}
+    <a href="/u/pageinit/?page={{end if page>= end else page+1}}">下一页</a>
+
+</body>
+</html>
